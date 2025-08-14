@@ -1,3 +1,10 @@
+# 1.0.0 (2025-08-14)
+
+
+### Features
+
+* **project:** Release ([901aa72](https://github.com/TheMeinerLP/HelmCharts/commit/901aa72e1d8c085860560fc8398a3c5bc95ffbb1))
+
 # Changelog
 
 All notable changes to the BlueMap Helm chart will be documented in this file.
