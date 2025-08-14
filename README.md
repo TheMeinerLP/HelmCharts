@@ -23,17 +23,15 @@ You can add this Helm repository in two ways:
 
 ```bash
 # Add the repository
-helm repo add helmcharts https://GITHUB_USERNAME.github.io/HelmCharts/
+helm repo add helmcharts https://themeinerlp.github.io/HelmCharts/
 # Update the repository
 helm repo update
 ```
 
-Replace `GITHUB_USERNAME` with your actual GitHub username.
-
 #### Option 2: Clone the Repository Locally
 
 ```bash
-git clone https://github.com/GITHUB_USERNAME/HelmCharts.git
+git clone https://github.com/themeinerlp/HelmCharts.git
 cd HelmCharts
 ```
 
