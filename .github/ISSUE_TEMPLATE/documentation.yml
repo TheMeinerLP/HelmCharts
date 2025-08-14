@@ -4,6 +4,8 @@ title: "Docs: "
 labels: 
   - documentation
   - needs-triage
+projects:
+  - OneLiteFeatherNET/4
 body:
   - type: markdown
     attributes:
