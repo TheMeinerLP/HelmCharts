@@ -39,8 +39,6 @@ jobs:
         working-directory: charts/${{ matrix.chart }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # Optional: Tagformat pro Chart, damit Releases klar getrennt sind:
-          SEMANTIC_RELEASE_TAG_FORMAT: "${{ matrix.chart }}-v\${version}"
         run: |
           # Nur releasen, wenn sich im Chart-Ordner etwas geändert hat:
           if git diff --quiet origin/main...HEAD -- . ; then
@@ -48,3 +46,28 @@ jobs:
             exit 0
           fi
           npx semantic-release
+  release:
+    needs: semantic_release_per_chart
+    runs-on: ubuntu-latest
+    # Need write permission to create releases and push to gh-pages branch
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.6.0
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        with:
+          charts_dir: charts
+          # Skip packaging if the chart version hasn't changed
+          # This is important to work well with the semantic release process
+          skip_existing: true
