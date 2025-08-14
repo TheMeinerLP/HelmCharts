@@ -3,6 +3,17 @@ entries:
   bluemap:
   - apiVersion: v2
     appVersion: "5.11"
+    created: "2025-08-14T16:49:37.746423375Z"
+    description: A simple helm chart for deploying BlueMap, a Minecraft map renderer
+      and web viewer.
+    digest: 43104e79aa88545ea7c44073e16e367d45eee768c046a944ed53473d93ef22c0
+    name: bluemap
+    type: application
+    urls:
+    - https://github.com/TheMeinerLP/HelmCharts/releases/download/bluemap-1.0.2/bluemap-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
+    appVersion: "5.11"
     created: "2025-08-14T16:40:38.821301039Z"
     description: A simple helm chart for deploying BlueMap, a Minecraft map renderer
       and web viewer.
@@ -34,4 +45,4 @@ entries:
     urls:
     - https://github.com/TheMeinerLP/HelmCharts/releases/download/bluemap-0.0.1/bluemap-0.0.1.tgz
     version: 0.0.1
-generated: "2025-08-14T16:40:38.821314514Z"
+generated: "2025-08-14T16:49:37.746443523Z"
