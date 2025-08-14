@@ -1,0 +1,120 @@
+name: "Bug Report"
+description: "Report a bug or unexpected behavior"
+title: "[Bug]: "
+labels:
+  - bug
+  - needs-triage
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report! The more information you provide, the better we can help you.
+
+  - type: textarea
+    attributes:
+      label: "Bug Description"
+      description: |
+        A clear and concise description of what the bug is.
+      placeholder: |
+        Example: The chart fails to deploy when setting custom resource limits.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: "Steps to Reproduce"
+      description: "Detailed steps to reproduce the behavior"
+      placeholder: |
+        1. Install the chart with these values: ...
+        2. Try to access the service at ...
+        3. See error ...
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: "Expected Behavior"
+      description: "A clear description of what you expected to happen"
+      placeholder: |
+        Example: The chart should deploy successfully with the custom resource limits.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: "Actual Behavior"
+      description: "What actually happened instead"
+      placeholder: |
+        Example: The deployment fails with an error message about invalid resource limits.
+    validations:
+      required: true
+
+  - type: dropdown
+    attributes:
+      label: "Severity"
+      description: "How severe is this issue?"
+      options:
+        - Critical (System crash, data loss, security issue)
+        - High (Major functionality broken)
+        - Medium (Feature partially broken)
+        - Low (Minor issue, cosmetic, enhancement)
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: "Chart Version"
+      description: "Which version of the chart are you using?"
+      placeholder: "e.g., 1.2.3"
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: "Kubernetes Version"
+      description: "Which version of Kubernetes are you using?"
+      placeholder: "e.g., 1.25.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    attributes:
+      label: "Environment"
+      description: "Where are you running Kubernetes?"
+      options:
+        - Local (minikube, kind, k3s, etc.)
+        - Self-hosted (on-premises)
+        - AWS EKS
+        - Google GKE
+        - Azure AKS
+        - Digital Ocean
+        - Other (please specify in additional information)
+    validations:
+      required: true
+
+  - type: checkboxes
+    attributes:
+      label: "Additional Information"
+      options:
+        - label: "This is a regression (it worked in a previous version)"
+        - label: "I have found a workaround (if so, please describe it below)"
+
+  - type: textarea
+    attributes:
+      label: "Logs, Error Messages, or Screenshots"
+      description: |
+        If applicable, add logs, error messages, or screenshots to help explain your problem.
+        For logs or error messages, use code blocks (```) to format them properly.
+      placeholder: |
+        ```
+        Error logs go here
+        ```
+    validations:
+      required: false
+
+  - type: textarea
+    attributes:
+      label: "Additional Context"
+      description: "Add any other context about the problem here, including any workarounds you've found"
+    validations:
+      required: false

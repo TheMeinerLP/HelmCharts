@@ -1,0 +1,50 @@
+name: release
+on:
+  push:
+    branches: [ "main" ]
+
+permissions:
+  contents: write
+
+jobs:
+  detect-charts:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: set-matrix
+        run: |
+          charts=$(ls -d charts/*/ | xargs -n1 basename | jq -R -s -c 'split("\n")[:-1]')
+          echo "matrix={\"chart\": $charts}" >> $GITHUB_OUTPUT
+
+  semantic_release_per_chart:
+    needs: detect-charts
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.detect-charts.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+
+      - name: Install release tooling
+        run: |
+          npm i -D semantic-release @semantic-release/changelog @semantic-release/git @semantic-release/github semantic-release-helm3
+
+      - name: semantic-release for chart
+        working-directory: charts/${{ matrix.chart }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Optional: Tagformat pro Chart, damit Releases klar getrennt sind:
+          SEMANTIC_RELEASE_TAG_FORMAT: "${{ matrix.chart }}-v\${version}"
+        run: |
+          # Nur releasen, wenn sich im Chart-Ordner etwas geändert hat:
+          if git diff --quiet origin/main...HEAD -- . ; then
+            echo "No changes in charts/${{ matrix.chart }} — skipping."
+            exit 0
+          fi
+          npx semantic-release

@@ -1,0 +1,96 @@
+name: "Feature Request"
+description: "Suggest a new feature or enhancement for the Helm charts"
+title: "Feature: "
+labels: 
+  - enhancement
+  - needs-triage
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to suggest a new feature! Your input helps make our Helm charts better.
+
+  - type: textarea
+    attributes:
+      label: "Feature Description"
+      description: |
+        A clear and concise description of the feature you'd like to see implemented.
+      placeholder: |
+        Example: Add support for configuring custom init containers in the chart.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: "Use Case"
+      description: |
+        Describe the specific use case this feature would address. How would you use this feature?
+      placeholder: |
+        Example: I need to run database migrations before the main application starts.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: "Proposed Solution"
+      description: |
+        If you have ideas about how this feature could be implemented, please share them here.
+      placeholder: |
+        Example: Add a new section in values.yaml for defining custom init containers with their own configuration options.
+    validations:
+      required: false
+
+  - type: dropdown
+    attributes:
+      label: "Priority"
+      description: "How important is this feature to you?"
+      options:
+        - Critical (Blocking my usage of the chart)
+        - High (Would significantly improve my workflow)
+        - Medium (Would be a nice addition)
+        - Low (Just an idea for consideration)
+    validations:
+      required: true
+
+  - type: dropdown
+    attributes:
+      label: "Which chart(s) would this feature apply to?"
+      description: "Select all that apply"
+      multiple: true
+      options:
+        - bluemap
+        - All charts
+        - New chart (please specify in description)
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: "Alternatives Considered"
+      description: |
+        Have you considered any alternative solutions or workarounds? If so, please describe them.
+    validations:
+      required: false
+
+  - type: checkboxes
+    attributes:
+      label: "Additional Information"
+      options:
+        - label: "I would be willing to implement this feature myself"
+        - label: "I would be willing to test this feature if implemented"
+
+  - type: textarea
+    attributes:
+      label: "Screenshots or Examples"
+      description: |
+        If applicable, add screenshots, mockups, or code examples to help explain your feature request.
+        For code examples, use code blocks (```) to format them properly.
+    validations:
+      required: false
+
+  - type: textarea
+    attributes:
+      label: "Additional Context"
+      description: "Add any other context about the feature request here"
+    validations:
+      required: false

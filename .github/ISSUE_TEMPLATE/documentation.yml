@@ -1,0 +1,91 @@
+name: "Documentation Change"
+description: "Suggest improvements or report issues with documentation"
+title: "Docs: "
+labels: 
+  - documentation
+  - needs-triage
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to help us improve our documentation!
+
+  - type: dropdown
+    attributes:
+      label: "Type of Documentation Change"
+      description: "What type of documentation change are you suggesting?"
+      options:
+        - Error or inaccuracy in existing documentation
+        - Missing documentation
+        - Unclear or confusing documentation
+        - Improvement to existing documentation
+        - New documentation section or guide
+        - Other (please specify in description)
+    validations:
+      required: true
+
+  - type: dropdown
+    attributes:
+      label: "Which documentation does this apply to?"
+      description: "Select all that apply"
+      multiple: true
+      options:
+        - Main README.md
+        - Chart README.md (bluemap)
+        - Chart values documentation
+        - Installation instructions
+        - Usage examples
+        - Other (please specify in description)
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: "Description of the Issue or Improvement"
+      description: |
+        Clearly describe what is wrong or missing in the current documentation, or what improvement you're suggesting.
+      placeholder: |
+        Example: The installation instructions in the bluemap README.md are missing information about required dependencies.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: "Suggested Changes"
+      description: |
+        If you have specific wording or content changes in mind, please provide them here.
+      placeholder: |
+        Example: Add a new section titled "Prerequisites" with the following content:
+        ```markdown
+        ## Prerequisites
+        
+        Before installing this chart, ensure you have the following:
+        - Kubernetes 1.19+
+        - Helm 3.2.0+
+        - PV provisioner support in the underlying infrastructure
+        ```
+    validations:
+      required: false
+
+  - type: textarea
+    attributes:
+      label: "Why is this change important?"
+      description: |
+        Explain why this documentation change would be valuable to users of the charts.
+      placeholder: |
+        Example: This would help new users avoid common installation errors related to missing dependencies.
+    validations:
+      required: true
+
+  - type: checkboxes
+    attributes:
+      label: "Additional Information"
+      options:
+        - label: "I would be willing to submit a PR with these changes"
+
+  - type: textarea
+    attributes:
+      label: "Additional Context"
+      description: "Add any other context about the documentation change here"
+    validations:
+      required: false
