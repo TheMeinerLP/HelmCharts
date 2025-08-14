@@ -36,6 +36,8 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - "-r -u -w"
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
@@ -46,12 +48,32 @@ spec:
             {{- toYaml .Values.readinessProbe | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
           volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-      {{- with .Values.volumes }}
+            {{- include "bluemap.configmapVolumeMounts" . | nindent 12 }}
+            {{- toYaml .Values.volumeMounts | nindent 12 }}
+      initContainers:
+        - name: seed-packs
+          image: alpine:3.20
+          command: [ "/bin/sh", "-c" ]
+          args:
+            - |
+              set -eu
+              apk add --no-cache curl unzip
+              echo "[Seed Packs] Downloading latest BlueMap packs..."
+              mkdir -p /app/packs
+              i=1
+              for url in {{- range $i, $pack := .Values.packs }} {{ $pack }} {{- end }}; do
+                curl -fsSL "$url" -o "/app/packs/pack${i}.jar"
+                i=$((i+1))
+              done
+          volumeMounts:
+            - name: packs
+              mountPath: /app/packs
       volumes:
+        - name: packs
+          emptyDir: {}
+        {{- include "bluemap.configmapVolumes" . | nindent 8 }}
+      {{- with .Values.volumes }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.nodeSelector }}

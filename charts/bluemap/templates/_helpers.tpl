@@ -60,3 +60,57 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Generates ConfigMap templates from bluemap.config, either from content or an existing ConfigMap reference
+*/}}
+{{- define "bluemap.configmaps" -}}
+{{- range $i, $cfg := .Values.bluemap.config }}
+{{- if $cfg.content }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bluemap-config-{{ $i }}
+data:
+  {{ base $cfg.path }}: |
+{{ $cfg.content | indent 4 }}
+{{- else if $cfg.configMap }}
+# Existing ConfigMap is used, no generation needed
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{/*
+Generates VolumeMounts for the ConfigMaps
+*/}}
+{{- define "bluemap.configmapVolumeMounts" -}}
+{{- range $i, $cfg := .Values.bluemap.config }}
+{{- if $cfg.content }}
+- name: bluemap-config-{{ $i }}
+  mountPath: {{ $cfg.path }}
+  subPath: {{ base $cfg.path }}
+{{- else if $cfg.configMap }}
+- name: {{ $cfg.configMap.name }}
+  mountPath: {{ $cfg.path }}
+  subPath: {{ $cfg.configMap.key }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{/*
+Generates Volumes for the ConfigMaps
+*/}}
+{{- define "bluemap.configmapVolumes" -}}
+{{- range $i, $cfg := .Values.bluemap.config }}
+{{- if $cfg.content }}
+- name: bluemap-config-{{ $i }}
+  configMap:
+    name: bluemap-config-{{ $i }}
+{{- else if $cfg.configMap }}
+- name: {{ $cfg.configMap.name }}
+  configMap:
+    name: {{ $cfg.configMap.name }}
+{{- end }}
+{{- end }}
+{{- end }}
