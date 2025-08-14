@@ -55,6 +55,7 @@ spec:
             {{- if .Values.volumeMounts }}
             {{- toYaml .Values.volumeMounts | nindent 12 }}
             {{- end }}
+      {{- if .Values.bluemap.packs }}
       initContainers:
         - name: seed-packs
           image: alpine:3.20
@@ -75,6 +76,7 @@ spec:
           volumeMounts:
             - name: packs
               mountPath: /app/config/packs
+      {{- end}}
       volumes:
         - name: packs
           emptyDir: {}

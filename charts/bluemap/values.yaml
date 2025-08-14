@@ -106,8 +106,8 @@ affinity: {}
 ### BlueMap Specific Values ###
 
 bluemap:
-  packs:
-    - "https://github.com/TheMeinerLP/BlueMapS3Storage/releases/download/v1.4.0/BlueMapS3Storage-1.4.0.jar"
+  packs: []
+  #  - "https://github.com/TheMeinerLP/BlueMapS3Storage/releases/download/v1.4.0/BlueMapS3Storage-1.4.0.jar"
   config:
     - path: "/app/config/core.conf"
       content: |
