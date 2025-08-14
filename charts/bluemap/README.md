@@ -57,3 +57,21 @@ bluemap:
 | `bluemap.packs` | BlueMap packs to install | See `values.yaml` |
 
 For more values, see the `values.yaml` file.
+
+## Versioning
+
+This chart follows [Semantic Versioning](https://semver.org/). The version is automatically updated based on the changes made to the chart using [semantic-release](https://github.com/semantic-release/semantic-release).
+
+### Version History
+
+For a full list of changes for each version, see the [CHANGELOG.md](./CHANGELOG.md) file.
+
+### Contributing
+
+When contributing to this chart, please follow the [Conventional Commits](https://www.conventionalcommits.org/) specification in your commit messages to ensure proper versioning:
+
+- `feat(bluemap): ...` - For new features (minor version bump)
+- `fix(bluemap): ...` - For bug fixes (patch version bump)
+- `feat(bluemap)!: ...` or including `BREAKING CHANGE:` in the commit body - For breaking changes (major version bump)
+
+The chart version in `Chart.yaml` will be automatically updated by the CI/CD pipeline based on your commit messages.
