@@ -39,13 +39,7 @@ jobs:
         working-directory: charts/${{ matrix.chart }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # Nur releasen, wenn sich im Chart-Ordner etwas geändert hat:
-          if git diff --quiet origin/main...HEAD -- . ; then
-            echo "No changes in charts/${{ matrix.chart }} — skipping."
-            exit 0
-          fi
-          npx semantic-release
+        run: npx semantic-release
   release:
     needs: semantic_release_per_chart
     runs-on: ubuntu-latest
